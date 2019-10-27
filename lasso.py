@@ -613,7 +613,7 @@ def _get_predicted_pixel_color(predicted_lable, true_lable):
     return 255
 
 
-def _get_predicted_img():
+def _get_predicted_img(img):
     w = np.load('w_0.010000_0.100000_0.npy')
     vanila_w = np.load('vanila_w_0.010000_0.100000.npy')
 
@@ -638,26 +638,26 @@ def _get_predicted_img():
     return predicted_img, predicted_vanila_img, lables, vanila_lables
 
 
-img_file_name = '42078'
-img = imageio.imread(img_file_name+ '.png')
-img_labels = pd.read_csv(img_file_name+ '_labels.txt', sep=" ", index_col=False, header=None).values
-img_labels = img_labels[:,:img_labels.shape[1]-1]
-img_labels = 2*img_labels-1
-img_labels = img_labels.astype(int)
-
-show_img_with_label(img)
-show_img_with_label(img,img_labels)
-
-uc_graph, uc_opt_acc, uc_y, uc_X, M = _get_image_graph(img, img_labels)
-# prob = [0.01, 0.1, 0.5, 1.0]
-prob = [0.1]
-uc_non_acc, uc_acc = train(uc_graph, uc_X, uc_y, uc_opt_acc, 10, reg=reg, prob=prob, num_exps=1, M=None, is_plot=True, prefix="img",
-                               is_saved=True, compare_with_lr=True)
-
-predicted_img, predicted_vanila_img, lables, vanila_lables = _get_predicted_img()
-
-print('missed lables by out method for reg: 0.01')
-show_img_with_label(predicted_img)
-
-print('missed lables for vanila logistic regression')
-show_img_with_label(predicted_vanila_img)
+# img_file_name = '42078'
+# img = imageio.imread(img_file_name+ '.png')
+# img_labels = pd.read_csv(img_file_name+ '_labels.txt', sep=" ", index_col=False, header=None).values
+# img_labels = img_labels[:,:img_labels.shape[1]-1]
+# img_labels = 2*img_labels-1
+# img_labels = img_labels.astype(int)
+#
+# show_img_with_label(img)
+# show_img_with_label(img,img_labels)
+#
+# uc_graph, uc_opt_acc, uc_y, uc_X, M = _get_image_graph(img, img_labels)
+# # prob = [0.01, 0.1, 0.5, 1.0]
+# prob = [0.1]
+# uc_non_acc, uc_acc = train(uc_graph, uc_X, uc_y, uc_opt_acc, 10, reg=reg, prob=prob, num_exps=1, M=None, is_plot=True, prefix="img",
+#                                is_saved=True, compare_with_lr=True)
+#
+# predicted_img, predicted_vanila_img, lables, vanila_lables = _get_predicted_img(img)
+#
+# print('missed lables by out method for reg: 0.01')
+# show_img_with_label(predicted_img)
+#
+# print('missed lables for vanila logistic regression')
+# show_img_with_label(predicted_vanila_img)
